@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Subscription</title>
+</head>
+<body>
+  <form id="subscriptionForm">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <input type="checkbox" id="subscribe" name="subscribe">
+    <label for="subscribe">Subscribe</label><br><br>
+
+    <button type="button" id="sendButton">Send</button>
+  </form>
+
+  <script>
+    document.getElementById('sendButton').addEventListener('click', function() {
+      var email = document.getElementById('email').value;
+      var subscribe = document.getElementById('subscribe').checked;
+
+      if (subscribe) {
+        alert('Thank you for subscribing!');
+      } else {
+        location.reload(); // Обновляем страницу
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тест</title>
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="page1">
+    <h2>Страница 1. Ответьте правильно на вопросы</h2>
+    <form id="form1">
+      <p>Вопрос 1. Сколько будет 1+1?</p>
+      <input type="radio" name="q1" value="1"> 1<br>
+      <input type="radio" name="q1" value="2"> 2 <br>
+      <input type="radio" name="q1" value="3"> 3<br><br>
+      <!-- Добавьте остальные вопросы аналогично -->
+      <button type="button" onclick="nextPage(1)">Дальше</button>
+    </form>
+  </div>
+
+
+  <div id="page2" class="hidden">
+    <h2>Страница 2: Multiple Correct Answers</h2>
+    <form id="form2">
+      <p>Вопрос 1: Какие из чисел являются простыми?</p>
+      <input type="checkbox" name="q1" value="2"> 2<br>
+      <input type="checkbox" name="q1" value="4"> 4<br>
+      <input type="checkbox" name="q1" value="5"> 5<br>
+
+      <button type="button" onclick="nextPage(2)">Дальше</button>
+    </form>
+  </div>
+
+
+  <div id="page3" class="hidden">
+    <h2>Страница 3: Быстрый ответ</h2>
+    <form id="form3">
+      <p>Вопрос 1: Какой город является столицей Франции?</p>
+      <input type="text" name="q1"><br>
+
+      <button type="button" onclick="calculateScore()">Финиш</button>
+    </form>
+  </div>
+
+  <div id="result" class="hidden">
+    <h2>Результаты</h2>
+    <p>Всего баллов: <span id="totalScore"></span></p>
+  </div>
+
+  <script>
+    var score1 = 0;
+    var score2 = 0;
+
+    function nextPage(page) {
+      if (page === 1) {
+
+        var answer = document.querySelector('input[name="q1"]:checked');
+        if (answer && answer.value === "2") {
+          score1++;
+        }
+        document.getElementById('page1').classList.add('hidden');
+        document.getElementById('page2').classList.remove('hidden');
+      } else if (page === 2) {
+
+        var answers = document.querySelectorAll('input[name="q1"]:checked');
+        answers.forEach(function(answer) {
+          if (answer.value === "2" || answer.value === "5") {
+            score2++;
+          }
+        });
+        document.getElementById('page2').classList.add('hidden');
+        document.getElementById('page3').classList.remove('hidden');
+      }
+    }
+
+    function calculateScore() {
+
+      var answer = document.getElementById('form3').elements['q1'].value.toLowerCase();
+      if (answer === "париж") {
+        score1 += 5; 
+        score2 += 5 * 3; 
+      }
+      var totalScore = score1 + score2;
+      document.getElementById('totalScore').textContent = totalScore;
+      document.getElementById('page3').classList.add('hidden');
+      document.getElementById('result').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
